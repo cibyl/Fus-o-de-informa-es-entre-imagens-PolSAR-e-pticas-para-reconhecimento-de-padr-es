@@ -54,15 +54,15 @@ O projeto de pesquisa propõe a fusão de informações para reconhecimento de p
 
 O presente projeto de pesquisa será submetido ao Programa de Pós-graduação em Engenharia Elétrica e Computação da Universidade Presbiteriana Mackenzie. 
 
-O radar de abertura sintética PolSAR alcançou uma posição essencial no sensoriamento remoto. Os dados que esses sensores fornecem precisam de técnicas especificamente adaptados para reconhecer as informações disponíveis. Entre essas técnicas, a detecção de borda é uma das mais importantes para extrair informações. As bordas possuem um alto nível de importância e dificuldades, como tal, fornecem informações relevantes sobre a imagem.
+O radar de abertura sintética polarimétrico PolSAR alcançou uma posição essencial no sensoriamento remoto. Os dados que esses sensores fornecem precisam de técnicas especificamente adaptados para reconhecer as informações disponíveis. Entre essas técnicas, a detecção de borda é uma das mais importantes para extrair informações. As bordas possuem um alto nível de importância e dificuldades, como tal, fornecem informações relevantes sobre a imagem.
 
 % AAB inserido
 As pesquisas em \textit{Deep Learning} e reconhecimento de padrões são muito importantes na área de sensoriamento remoto, uma pesquisa sistemática dos métodos são encontradas na referência \cite{ztmxzxf}. 
 As técnicas serão aplicadas no processo de detecção de bordas e fusão das informações de bordas. 
 
-A abordagem de modelagem estatística, principalmente as técnicas descritas em \cite{bmf_2020}, \cite{nhfc},  e \cite{ref_proc3}, para a detecção de bordas, são usadas para fornecer informações ao processo de fusão das bordas encontradas, para isso, temos como base do trabalho a referência \cite{ref_proc4}. 
+A abordagem de modelagem estatística, principalmente as técnicas descritas em \cite{bmf_2020}, \cite{nhfc},  e \cite{ref_proc3}, para a detecção de bordas, são usadas para fornecer informações ao processo de fusão, para isso, temos como base do trabalho a referência \cite{ref_proc4}. 
 
-A ideia principal proposta do trabalho é detectar bordas em cada imagem (canal) de uma imagem PolSAR, ampliando o método para imagens óticas, e realizar a fusão das informações de bordas, com o objetivo de melhorar a qualidade da informação da borda detectada.
+A ideia principal proposta no trabalho é detectar bordas em cada imagem (canal) de uma imagem PolSAR, ampliando o método para imagens óticas, e realizar a fusão das informações de bordas, com o objetivo de melhorar a qualidade da informação detectada.
 
 \section{Objetivos}
 
@@ -70,7 +70,7 @@ O principal objetivo do projeto é realizar a fusão de informações provenient
 
 \section{Justificativas e motivações}
 
-Tem sido um desafio propor, para a área de sensoriamento remoto e computação, a utilização das imagens SAR em aplicações devido a necessidade de estudos mais profundos. Para uma melhor compreensão e interação entre radar e objeto de estudo precisariamos de dados bem calibrados, algoritmos mais robustos e melhores técnicas de processamento de imagens, principalmente para o radar de abertura sintética polarimétrica (PolSAR) devido a existência de ruídos do tipo speckle.
+Tem sido um desafio propor, para a área de sensoriamento remoto e computação, a utilização das imagens PolSAR em aplicações devido a necessidade de estudos mais profundos. Para uma melhor compreensão e interação entre radar e objeto de estudo precisariamos de dados bem calibrados, algoritmos mais robustos e melhores técnicas de processamento de imagens, principalmente para o radar de abertura sintética polarimétrica (PolSAR) devido a existência de ruídos do tipo speckle.
 
 Este projeto de pesquisa apresenta tópicos atuais que servem de motivação e justificativa ao projeto, por exemplo:
 \begin{itemize}
@@ -88,21 +88,21 @@ Este projeto de pesquisa apresenta tópicos atuais que servem de motivação e j
 
 \section{Conceitos}
 % AAB inserido
-O projeto pode ser dividido em uma primeira etapa que consiste em encontrar informações de bordas nos diferentes canais (imagens) e como segunda etapa a fusão da informações. 
+O projeto pode ser dividido em uma primeira etapa que consiste em encontrar informações de bordas nos diferentes canais (imagens) e uma segunda etapa que consiste na fusão das informações provenientes da primeira etapa. 
 \subsection{Detecção de bordas em cada canal}
  Vamos modelar as imagens PolSAR com a função de densidade de probabilidade para os canais $(hh)$, $(hv)$ e $(vv)$ usando a distribuição Wishart (PDF) descrita por
 \begin{equation}
-    f_{\mathbf{Z}}(\mathbf{Z};\mathbf{\Sigma_{s}},L)=\frac{L^{mL}|\mathbf{Z}|^{L-m}}{|\mathbf{\Sigma_{s}}|^{L}\Gamma_m(L)} \exp(-L\mathbf{tr}(\mathbf{\Sigma_{s}}^{-1}\mathbf{Z})), \\
+    f_{\mathbf{Z}}(\mathbf{Z};\mathbf{\Sigma},L)=\frac{L^{mL}|\mathbf{Z}|^{L-m}}{|\mathbf{\Sigma}|^{L}\Gamma_m(L)} \exp(-L\mathbf{tr}(\mathbf{\Sigma}^{-1}\mathbf{Z})), \\
 \end{equation} 
 onde, $\mathbf{tr}(\cdot)$ é o operador traço de uma matriz, $\Gamma_m(L)$ é uma função Gamma multivariada definida por
 \begin{equation}\label{cap_acf_10}
 	\Gamma_m(L)=\pi^{\frac{1}{2}m(m-1)} \prod_{i=0}^{m-1}\Gamma(L-i) \\
 \end{equation}
-e $\Gamma(\cdot)$ é a função Gamma. Podemos afirmar que $\mathbf{Z}$ é distribuído como uma distribuição Wishart denotando por $\mathbf{Z}\sim W(\mathbf{\Sigma_{s}}, L)$ e satisfazendo $E[\mathbf{Z}]=\mathbf{\Sigma_{s}}$. Sem perda de generalidade para o texto vamos usar o simbolo $\mathbf{\Sigma}$ em detrimento a $\mathbf{\Sigma_{s}}$ para representar a matriz de covariância associada a $\mathbf{S}$.
+e $\Gamma(\cdot)$ é a função Gamma. Podemos afirmar que $\mathbf{Z}$ é distribuído como uma distribuição Wishart denotando por $\mathbf{Z}\sim W(\mathbf{\Sigma}, L)$ e satisfazendo $E[\mathbf{Z}]=\mathbf{\Sigma}$. O simbolo $\mathbf{\Sigma}$ representa a matriz de covariância associada a $\mathbf{S}$.
  
 Usando a função densidade de probabilidade e o método da máxima verossimilhança vamos detectar as bordas nas imagens PolSAR. Da mesma forma temos que definir o procedimento para imagens óticas. 
 \subsection{Métodos de Fusão para detectar bordas em cada canal}
- O objetivo da fusão de imagens é mesclar o conteúdo de várias imagens da mesma cena (canais diferentes) em uma única informação, assim, obtendo a melhor otimização ao comparar individualmente cada imagem. Os seguinte métodos de fusão foram estudados na referência \cite{bmf_2020},
+ O objetivo da fusão de imagens é mesclar o conteúdo de várias imagens da mesma cena (canais diferentes) em uma única informação, assim, obtendo a melhor correção ao comparar individualmente cada imagem. Os seguinte métodos de fusão foram estudados na referência \cite{bmf_2020},
 \begin{itemize}
   \item Média simples;
   \item transformada wavelet discreta de multi-resolução (MR-DWT);
@@ -112,12 +112,12 @@ Usando a função densidade de probabilidade e o método da máxima verossimilha
   \item transformada baseada em decomposição em valores singulares de multi-resolução (MR-SVD).
 \end{itemize}
 
-A classificação é uma das questões mais fundamentais no
+A classificação é questão fundamental no
 processo de interpretação de imagens PolSAR. Diversos estudos propõem desenvolvimentos de classificações de imagens PolSAR, tanto para métodos clássicos quanto híbridos. O projeto tem como intuito comparar e propor novas novas técnicas baseadas nos seguintes tópicos 
 \begin{itemize}
   \item SVM, veja referência \cite{ref_proc1}.
   \item Deep Learning, veja referências \cite{ref_proc3} e \cite{ztmxzxf}.
-  \item Forest Classification veja referência \cite{ref_proc1}.
+  \item Forest Classification, veja referência \cite{ref_proc1}.
 \end{itemize}
 
 \section{Metodologia}
