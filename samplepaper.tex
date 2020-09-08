@@ -86,6 +86,7 @@ e $\Gamma(\cdot)$ é a função Gamma. Podemos afirmar que $\mathbf{Z}$ é distr
  
 Usando a função densidade de probabilidade e o método da máxima verossimilhança vamos detectar as bordas nas imagens PolSAR. Da mesma forma temos que definir o procedimento para imagens óticas. 
 \subsection{Métodos de Fusão para detectar bordas em cada canal}
+O objetivo da fusão de imagens é mesclar o conteúdo de várias imagens da mesma cena (canais diferentes) em uma única informação, assim, obtendo a melhor otimização ao comparar individualmente cada imagem. 
 \begin{itemize}
   \item Análise de componente principal (PCA).
   \item Estatística ROC.
@@ -93,6 +94,8 @@ Usando a função densidade de probabilidade e o método da máxima verossimilha
 \end{itemize}
 
 \subsection{Provaveis métodos de classificação para fusão}
+classificação é uma das questões mais fundamentais no
+processo de interpretação de imagens PolSAR. Diversos estudos propõem desenvolvimentos de classificações de imagens PolSAR, tanto para métodos clássicos quanto híbridos. O projeto tem como intuito comparar e propor novas abordagens.
 \begin{itemize}
   \item SVM [2].
   \item Deep Learning [3].
